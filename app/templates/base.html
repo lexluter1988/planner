@@ -48,7 +48,7 @@ body {
 {% block navbar %}
 <div class="sidenav">
     {% if current_user.is_anonymous %}
-        <a href="{{ url_for('main.index') }}">{{ _('Login') }}</a>
+        <a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a>
     {% else %}
         <a href="#">{{ _('Logout') }}</a>
         <a href="#">{{ _('Profile') }}</a>
