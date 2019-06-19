@@ -7,4 +7,5 @@ from app.main import bp
 @bp.route('/index')
 @login_required
 def index():
-    return render_template('index.html')
+    services = {'settings': True, 'notes': False}
+    return render_template('index.html', context=services)

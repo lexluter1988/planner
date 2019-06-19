@@ -59,6 +59,9 @@ body {
         <a href="#">{{ _('Notes') }}</a>
         <a href="#">{{ _('Settings') }}</a>
     {% endif %}
+    {% if context.settings %}
+    <a href="#">{{ _('Settings') }}</a>
+    {% endif %}
 </div>
 {% endblock %}
 

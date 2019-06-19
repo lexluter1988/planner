@@ -11,6 +11,8 @@ from app.models import User
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
+    # idea to load links based on enabled and registered services
+    services = {'settings': True, 'notes': False}
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = LoginForm()
@@ -24,7 +26,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('main.index')
         return redirect(next_page)
-    return render_template('login.html', title=_('Sign In'), form=form)
+    return render_template('login.html', title=_('Sign In'), form=form, context=services)
 
 
 @bp.route('/logout')
