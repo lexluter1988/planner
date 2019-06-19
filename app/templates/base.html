@@ -49,21 +49,28 @@ body {
 <div class="sidenav">
     {% if current_user.is_anonymous %}
         <a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a>
+        <a href="#">{{ _('About Planner') }}</a>
     {% else %}
-        <a href="#">{{ _('Logout') }}</a>
+        <a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
         <a href="#">{{ _('Profile') }}</a>
+        <a href="#">{{ _('Tasks') }}</a>
+        <a href="#">{{ _('Milestones') }}</a>
+        <a href="#">{{ _('Projects') }}</a>
+        <a href="#">{{ _('Notes') }}</a>
+        <a href="#">{{ _('Settings') }}</a>
     {% endif %}
-    <a href="#">{{ _('Tasks') }}</a>
-    <a href="#">{{ _('Milestones') }}</a>
-    <a href="#">{{ _('Projects') }}</a>
-    <a href="#">{{ _('Settings') }}</a>
-    <a href="#">{{ _('Notes') }}</a>
-    <a href="#">{{ _('Settings') }}</a>
 </div>
 {% endblock %}
 
 {% block content %}
 <div class="container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
     {% block app_content %}
     {% endblock %}
 </div>
