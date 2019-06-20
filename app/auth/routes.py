@@ -11,8 +11,7 @@ from app.models import User
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    # idea to load links based on enabled and registered services
-    services = {'settings': True, 'notes': False}
+    services = {'settings': True, 'notes': False, 'about':  True}
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = LoginForm()

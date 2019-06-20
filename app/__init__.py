@@ -38,6 +38,9 @@ def create_app(config_class=Config):
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
 
+    from app.notes import bp as notes_bp
+    app.register_blueprint(notes_bp, url_prefix='/notes')
+
     if not app.debug and not app.testing:
         if app.config['MAIL_SERVER']:
             auth = None

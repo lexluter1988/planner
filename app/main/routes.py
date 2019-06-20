@@ -9,3 +9,15 @@ from app.main import bp
 def index():
     services = {'settings': True, 'notes': False}
     return render_template('index.html', context=services)
+
+
+@bp.route('/')
+@bp.route('/about')
+def about():
+    return render_template('about.html')
+
+
+@bp.route('/')
+@bp.route('/settings')
+def settings():
+    return render_template('settings.html')

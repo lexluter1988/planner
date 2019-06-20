@@ -49,19 +49,21 @@ body {
 <div class="sidenav">
     {% if current_user.is_anonymous %}
         <a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a>
-        <a href="#">{{ _('About Planner') }}</a>
+        <a href="{{ url_for('main.about') }}">{{ _('About') }}</a>
+        <a href="{{ url_for('main.settings') }}">{{ _('Settings') }}</a>
     {% else %}
         <a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
         <a href="#">{{ _('Profile') }}</a>
         <a href="#">{{ _('Tasks') }}</a>
         <a href="#">{{ _('Milestones') }}</a>
         <a href="#">{{ _('Projects') }}</a>
-        <a href="#">{{ _('Notes') }}</a>
-        <a href="#">{{ _('Settings') }}</a>
-    {% endif %}
-    {% if context.settings %}
-    <a href="#">{{ _('Settings') }}</a>
-    {% endif %}
+        <a href="{{ url_for('notes.add') }}">{{ _('Notes') }}</a>
+    <!--{% endif %}-->
+    <!--{% if context %}-->
+        <!--{% if context.settings %}-->
+            <!--<a href="#">{{ _('Settings') }}</a>-->
+        <!--{% endif %}-->
+    <!--{% endif %}-->
 </div>
 {% endblock %}
 
