@@ -18,7 +18,7 @@
     {% else %}
         <a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
         <a href="#">{{ _('Profile') }}</a>
-        <a href="#">{{ _('Tasks') }}</a>
+        <a href="{{ url_for('tasks.all') }}">{{ _('Tasks') }}</a>
         <a href="#">{{ _('Milestones') }}</a>
         <a href="#">{{ _('Projects') }}</a>
         <a href="{{ url_for('notes.add') }}">{{ _('Notes') }}</a>

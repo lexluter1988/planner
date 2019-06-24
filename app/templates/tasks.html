@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h1>{{ _('Tasks') }}</h1>
+        {% if form %}
+            {{ wtf.quick_form(form) }}
+        {% endif %}
+
+        {% if tasks %}
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">{{ _('id') }}</th>
+              <th scope="col">{{ _('Name') }}</th>
+              <th scope="col">{{ _('User') }}</th>
+              <th scope="col">{{ _('Description') }}</th>
+              <th scope="col">{{ _('Project') }}</th>
+              <th scope="col">{{ _('Milestone') }}</th>
+              <th scope="col">{{ _('Priority') }}</th>
+              <th scope="col">{{ _('Group') }}</th>
+              <th scope="col">{{ _('Status') }}</th>
+              <th scope="col">{{ _('Created') }}</th>
+              <th scope="col">{{ _('Deadline') }}</th>
+              <th scope="col">{{ _('Schedule') }}</th>
+              <th scope="col">{{ _('Estimated') }}</th>
+              <th scope="col">{{ _('Duration') }}</th>
+              <th scope="col">{{ _('Actions') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for task in tasks %}
+            <tr>
+              <th scope="row">{{ task.id }}</th>
+              <td>{{ task.name }}</td>
+              <td>{{ task.author.username }}</td>
+              <td>{{ task.description }}</td>
+              <td>{{ task.project }}</td>
+              <td>{{ task.milestone }}</td>
+              <td>{{ task.priority }}</td>
+              <td>{{ task.group }}</td>
+              <td>{{ task.status }}</td>
+              <td>{{ task.created }}</td>
+              <td>{{ task.deadline }}</td>
+              <td>{{ task.schedule }}</td>
+              <td>{{ task.estimated }}</td>
+              <td>{{ task.duration }}</td>
+              <td>{{ task.actions }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endfor %}
+        {% endif %}
+    <br>
+{% endblock %}
