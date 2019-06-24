@@ -12,7 +12,7 @@ from app.notes.forms import AddNoteForm
 @login_required
 def all():
     notes = Note.query.all()
-    return render_template('notes.html', notes=notes)
+    return render_template('notes/notes.html', notes=notes)
 
 
 @bp.route('/notes/add', methods=['GET', 'POST'])
@@ -29,5 +29,5 @@ def add():
         db.session.commit()
         flash(_('Your note is saved'))
         return redirect(url_for('notes.add'))
-    return render_template('notes.html', form=form, notes=notes)
+    return render_template('notes/notes.html', form=form, notes=notes)
 

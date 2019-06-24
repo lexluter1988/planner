@@ -11,4 +11,4 @@ from app.tasks import bp
 @login_required
 def all():
     tasks = Task.query.all()
-    return render_template('tasks.html', tasks=tasks)
+    return render_template('tasks/tasks.html', tasks=tasks)
