@@ -29,8 +29,8 @@ def all():
             group=form.group.data,
             status=form.status.data,
             created=datetime.utcnow(),
-            #deadline=form.deadline.data,
-            #schedule=form.schedule.data,
+            deadline=form.deadline.data,
+            schedule=form.schedule.data,
             estimated=form.estimated.data,
             actions=form.actions.data
         )

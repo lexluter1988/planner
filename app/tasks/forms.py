@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, DateTimeField, TextAreaField, IntegerField
 from flask_babel import _, lazy_gettext as _l
@@ -30,8 +32,8 @@ class TaskForm(FlaskForm):
                              ('done', 'Done')],
                          validators=[DataRequired()])
 
-    #deadline = DateTimeField(_l('Deadline'), format='%m/%d/%y %H:%M', id='deadline_datepicker')
-    #schedule = DateTimeField(_l('Schedule'), format='%m/%d/%y %H:%M', id='schedule_datepicker')
+    deadline = DateTimeField(_l('Deadline'), format='%m/%d/%y %H:%M', default=datetime.now())
+    schedule = DateTimeField(_l('Schedule'), format='%m/%d/%y %H:%M', default=datetime.now())
     estimated = IntegerField(_l('Estimated'))
 
     actions = StringField(_l('Actions'), validators=[DataRequired()])
