@@ -8,13 +8,6 @@ from app.notes import bp
 from app.notes.forms import AddNoteForm
 
 
-@bp.route('/notes', methods=['GET'])
-@login_required
-def all():
-    notes = Note.query.all()
-    return render_template('notes/notes.html', notes=notes)
-
-
 @bp.route('/notes/add', methods=['GET', 'POST'])
 @login_required
 def add():

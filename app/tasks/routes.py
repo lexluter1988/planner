@@ -12,9 +12,9 @@ from app.tasks.forms import TaskForm
 
 @bp.route('/tasks', methods=['GET', 'POST'])
 @login_required
-def all():
+def add():
     if not current_user.is_authenticated:
-        flash(_('You must be logged in to write notes'))
+        flash(_('You must be logged in to create tasks'))
         return redirect(url_for('main.index'))
     form = TaskForm()
     tasks = Task.query.all()

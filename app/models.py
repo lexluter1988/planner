@@ -74,6 +74,19 @@ class Task(db.Model):
     actions = db.Column(db.String(120))
 
 
+class Milestone(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    description = db.Column(db.Text)
+    projects = db.Column(db.Integer, nullable=True)
+    status = db.Column(db.String(64))
+    created = db.Column(db.DateTime)
+    ended = db.Column(db.DateTime)
+    deadline = db.Column(db.DateTime)
+    estimated = db.Column(db.Integer)
+    duration = db.Column(db.Integer)
+
+
 @login.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
