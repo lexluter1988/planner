@@ -3,6 +3,7 @@
 {% block styles %}
 {{super()}}
 <link href="/static/css/style.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block title %}
@@ -12,17 +13,30 @@
 {% block navbar %}
 <div class="sidenav">
     {% if current_user.is_anonymous %}
-        <a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a>
+        <a href="{{ url_for('auth.login') }}">
+            <i class="fa fa-fw fa-home"></i>
+            {{ _('Login') }}
+        </a>
         <a href="{{ url_for('main.about') }}">{{ _('About') }}</a>
-        <a href="{{ url_for('main.settings') }}">{{ _('Settings') }}</a>
+        <a href="{{ url_for('main.settings') }}">
+            <i class="fa fa-fw fa-home"></i>
+            {{ _('Settings') }}
+        </a>
     {% else %}
-        <a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
+        <a href="{{ url_for('auth.logout') }}">
+            <i class="fas fa-smile"></i>
+            {{ _('Logout') }}
+        </a>
         <a href="#">{{ _('Profile') }}</a>
         <a href="{{ url_for('tasks.add') }}">{{ _('Tasks') }}</a>
         <a href="{{ url_for('milestones.add') }}">{{ _('Milestones') }}</a>
         <a href="{{ url_for('projects.add') }}">{{ _('Projects') }}</a>
         <a href="{{ url_for('notes.add') }}">{{ _('Notes') }}</a>
-        <a href="#">{{ _('Finances') }}</a>
+        <a class="accordion-heading" data-toggle="collapse" data-target="#submenu">{{ _('Finances') }}<span class="pull-right"><b class="caret"></b></span></a>
+    	<ul class="nav nav-list collapse" id="submenu">
+		 	<li><a href="#" title="Title">{{ _('Accounts') }}</a></li>
+			<li><a href="#" title="Title">{{ _('Expences') }}</a></li>
+		</ul>
     <!--{% endif %}-->
     <!--{% if context %}-->
         <!--{% if context.settings %}-->

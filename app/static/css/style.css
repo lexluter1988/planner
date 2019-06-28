@@ -17,9 +17,16 @@ body {
 .sidenav a {
   padding: 6px 6px 6px 32px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 15px;
   color: #818181;
   display: block;
+}
+
+.sidenav li>a {
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  font-size: 12px;
+  color: #818181;
 }
 
 .sidenav a:hover {
