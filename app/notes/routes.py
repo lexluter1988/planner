@@ -15,7 +15,7 @@ def add():
         flash(_('You must be logged in to write notes'))
         return redirect(url_for('main.index'))
     form = AddNoteForm()
-    notes = Note.query.all()
+    notes = Note.query.filter_by(author=current_user)
     if form.validate_on_submit():
         note = Note(content=form.content.data, author=current_user)
         db.session.add(note)

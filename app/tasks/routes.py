@@ -17,7 +17,7 @@ def add():
         flash(_('You must be logged in to create tasks'))
         return redirect(url_for('main.index'))
     form = TaskForm()
-    tasks = Task.query.all()
+    tasks = Task.query.filter_by(author=current_user)
     if form.validate_on_submit():
         task = Task(
             name=form.name.data,
