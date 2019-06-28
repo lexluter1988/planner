@@ -75,10 +75,24 @@ class Task(db.Model):
 
 
 class Milestone(db.Model):
+    # TODO: describe what milestone is
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
     description = db.Column(db.Text)
     projects = db.Column(db.Integer, nullable=True)
+    status = db.Column(db.String(64))
+    created = db.Column(db.DateTime)
+    ended = db.Column(db.DateTime)
+    deadline = db.Column(db.DateTime)
+    estimated = db.Column(db.Integer)
+    duration = db.Column(db.Integer)
+
+
+class Project(db.Model):
+    # TODO: link projects with users, tasks and milestones
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    description = db.Column(db.Text)
     status = db.Column(db.String(64))
     created = db.Column(db.DateTime)
     ended = db.Column(db.DateTime)

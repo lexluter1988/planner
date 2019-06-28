@@ -20,8 +20,9 @@
         <a href="#">{{ _('Profile') }}</a>
         <a href="{{ url_for('tasks.add') }}">{{ _('Tasks') }}</a>
         <a href="{{ url_for('milestones.add') }}">{{ _('Milestones') }}</a>
-        <a href="#">{{ _('Projects') }}</a>
+        <a href="{{ url_for('projects.add') }}">{{ _('Projects') }}</a>
         <a href="{{ url_for('notes.add') }}">{{ _('Notes') }}</a>
+        <a href="#">{{ _('Finances') }}</a>
     <!--{% endif %}-->
     <!--{% if context %}-->
         <!--{% if context.settings %}-->
