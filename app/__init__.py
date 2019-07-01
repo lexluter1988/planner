@@ -8,7 +8,11 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
+
 from config import Config
+from flask_admin import Admin
+from flask_admin.contrib.sqlamodel import ModelView
+
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -18,6 +22,7 @@ login = LoginManager()
 login.login_view = 'auth.login'
 login.login_message = _l('Please log in to access this page.')
 mail = Mail()
+admin = Admin()
 
 
 def create_app(config_class=Config):
@@ -31,6 +36,11 @@ def create_app(config_class=Config):
     mail.init_app(app)
     bootstrap.init_app(app)
     babel.init_app(app)
+
+    from app.models import User, Note
+    admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(Note, db.session))
+    admin.init_app(app)
 
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)

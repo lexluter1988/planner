@@ -5,6 +5,7 @@ Click==7.0
 decorator==4.4.0
 dominate==2.3.5
 Flask==1.0.3
+Flask-Admin==1.5.3
 Flask-Babel==0.12.2
 Flask-Bootstrap==3.3.7.1
 Flask-Login==0.4.1
