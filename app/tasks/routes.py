@@ -37,5 +37,19 @@ def add():
         db.session.add(task)
         db.session.commit()
         flash(_('Your task is saved'))
-        return redirect(url_for('tasks.all'))
+        return redirect(url_for('tasks.add'))
     return render_template('tasks/tasks.html', tasks=tasks, form=form)
+
+
+# TODO: implement normal js delete method
+@bp.route('/tasks/<int:task_id>', methods=['GET'])
+@login_required
+def delete(task_id):
+    project = Task.query.filter_by(id=task_id).first_or_404()
+    if project:
+        db.session.delete(project)
+        db.session.commit()
+        flash(_('Your task is deleted'))
+    else:
+        flash(_('No task with such id found'))
+    return redirect(url_for('tasks.add'))

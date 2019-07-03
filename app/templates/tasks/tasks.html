@@ -50,6 +50,9 @@
               <td>{{ task.estimated }}</td>
               <td>{{ task.duration }}</td>
               <td>{{ task.actions }}</td>
+              <td>
+                  <a href="{{ url_for('tasks.delete', task_id = task.id ) }}"><span class="glyphicon glyphicon-trash"></span></a>
+              </td>
             </tr>
             {% endfor %}
           </tbody>

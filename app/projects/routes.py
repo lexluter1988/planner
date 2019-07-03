@@ -35,7 +35,8 @@ def add():
     return render_template('projects/projects.html', projects=projects, form=form)
 
 
-@bp.route('/project/<int:project_id>', methods=['GET'])
+# TODO: implement normal js delete method
+@bp.route('/projects/<int:project_id>', methods=['GET'])
 @login_required
 def delete(project_id):
     project = Project.query.filter_by(id=project_id).first_or_404()
