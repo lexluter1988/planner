@@ -36,6 +36,9 @@
               <td>{{ project.deadline }}</td>
               <td>{{ project.estimated }}</td>
               <td>{{ project.duration }}</td>
+              <td>
+                  <a href="{{ url_for('projects.delete', project_id = project.id ) }}"><span class="glyphicon glyphicon-trash"></span></a>
+              </td>
             </tr>
             {% endfor %}
           </tbody>

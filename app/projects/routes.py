@@ -13,6 +13,7 @@ from app.projects.forms import ProjectForm
 @bp.route('/projects', methods=['GET', 'POST'])
 @login_required
 def add():
+    # TODO: no need this, we already have decorator
     if not current_user.is_authenticated:
         flash(_('You must be logged in to create project'))
         return redirect(url_for('main.index'))
@@ -32,3 +33,16 @@ def add():
         flash(_('Your project is saved'))
         return redirect(url_for('projects.add'))
     return render_template('projects/projects.html', projects=projects, form=form)
+
+
+@bp.route('/project/<int:project_id>', methods=['GET'])
+@login_required
+def delete(project_id):
+    project = Project.query.filter_by(id=project_id).first_or_404()
+    if project:
+        db.session.delete(project)
+        db.session.commit()
+        flash(_('Your project is deleted'))
+    else:
+        flash(_('No project with such id found'))
+    return redirect(url_for('projects.add'))

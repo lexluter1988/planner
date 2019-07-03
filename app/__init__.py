@@ -11,7 +11,7 @@ from flask_mail import Mail
 
 from config import Config
 from flask_admin import Admin
-from flask_admin.contrib.sqlamodel import ModelView
+from flask_admin.contrib.sqla import ModelView
 
 
 db = SQLAlchemy()
