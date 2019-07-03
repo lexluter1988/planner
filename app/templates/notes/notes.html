@@ -9,7 +9,10 @@
 
         {% if notes %}
             {% for note in notes %}
-                <div><p>{{ note.author.username }} says: <b>{{ note.content }}</b></p></div>
+                <div><p>{{ note.author.username }} says: <b>{{ note.content }}</b>
+                    <a href="{{ url_for('notes.delete', note_id = note.id ) }}"><span class="glyphicon glyphicon-trash"></span></a>
+                </p>
+                </div>
             {% endfor %}
         {% endif %}
     <br>
