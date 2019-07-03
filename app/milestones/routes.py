@@ -33,3 +33,17 @@ def add():
         flash(_('Your milestone is saved'))
         return redirect(url_for('milestones.add'))
     return render_template('milestones/milestones.html', milestones=milestones, form=form)
+
+
+# TODO: implement normal js delete method
+@bp.route('/projects/<int:milestone_id>', methods=['GET'])
+@login_required
+def delete(milestone_id):
+    project = Milestone.query.filter_by(id=milestone_id).first_or_404()
+    if project:
+        db.session.delete(project)
+        db.session.commit()
+        flash(_('Your milestone is deleted'))
+    else:
+        flash(_('No milestone with such id found'))
+    return redirect(url_for('milestones.add'))

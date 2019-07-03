@@ -38,6 +38,9 @@
               <td>{{ milestone.deadline }}</td>
               <td>{{ milestone.estimated }}</td>
               <td>{{ milestone.duration }}</td>
+              <td>
+                  <a href="{{ url_for('milestones.delete', milestone_id = milestone.id ) }}"><span class="glyphicon glyphicon-trash"></span></a>
+              </td>
             </tr>
             {% endfor %}
           </tbody>
