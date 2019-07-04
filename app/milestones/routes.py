@@ -5,9 +5,10 @@ from flask_login import login_required, current_user
 from flask_babel import _, lazy_gettext as _l
 
 from app import db
-from app.models import Milestone
+from app.models import Milestone, Project
 from app.milestones import bp
 from app.milestones.forms import MilestoneForm
+from app.projects.routes import create_default_project
 
 
 @bp.route('/milestones', methods=['GET', 'POST'])
@@ -18,11 +19,18 @@ def add():
         return redirect(url_for('main.index'))
     form = MilestoneForm()
     milestones = Milestone.query.all()
+
+    projects = Project.query.all()
+    if not projects:
+        projects = [create_default_project()]
+    form.project.choices = [(p.id, p.name) for p in projects]
+
     if form.validate_on_submit():
+        selected_project = Project.query.get(form.project.data)
         milestone = Milestone(
             name=form.name.data,
             description=form.description.data,
-            projects=form.projects.data,
+            project=selected_project,
             status=form.status.data,
             created=datetime.utcnow(),
             deadline=form.deadline.data,
@@ -53,7 +61,7 @@ def create_default_milestone():
     milestone = Milestone(
         name=_('default'),
         description=_('Automatically generated default milestone '),
-        projects=None,
+        project=None,
         status=None,
         created=datetime.utcnow(),
         deadline=None,

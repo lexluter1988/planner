@@ -10,9 +10,7 @@ class MilestoneForm(FlaskForm):
     name = StringField(_l('Name'), validators=[DataRequired()])
     description = TextAreaField(_l('Description'))
 
-    projects = SelectField(_l('Project'),
-                           choices=[('home', 'Home'),
-                                    ('work', 'Work')])
+    project = SelectField(_l('Project'), coerce=int)
 
     status = SelectField(_l('Status'),
                          choices=[

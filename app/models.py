@@ -76,7 +76,6 @@ class Task(db.Model):
 
 
 class Project(db.Model):
-    # TODO: link projects with users, tasks and milestones
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
 
@@ -102,7 +101,6 @@ class Milestone(db.Model):
 
     tasks = db.relationship('Task', backref='milestone', lazy='dynamic')
     description = db.Column(db.Text)
-    projects = db.Column(db.Integer, nullable=True)
     status = db.Column(db.String(64))
     created = db.Column(db.DateTime)
     ended = db.Column(db.DateTime)

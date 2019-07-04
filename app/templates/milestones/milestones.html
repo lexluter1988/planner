@@ -18,7 +18,7 @@
               <th scope="col">{{ _('id') }}</th>
               <th scope="col">{{ _('Name') }}</th>
               <th scope="col">{{ _('Description') }}</th>
-              <th scope="col">{{ _('Projects') }}</th>
+              <th scope="col">{{ _('Project') }}</th>
               <th scope="col">{{ _('Status') }}</th>
               <th scope="col">{{ _('Created') }}</th>
               <th scope="col">{{ _('Deadline') }}</th>
@@ -32,7 +32,7 @@
               <th scope="row">{{ milestone.id }}</th>
               <td>{{ milestone.name }}</td>
               <td>{{ milestone.description }}</td>
-              <td>{{ milestone.projects }}</td>
+              <td>{{ milestone.project.name }}</td>
               <td>{{ milestone.status }}</td>
               <td>{{ milestone.created }}</td>
               <td>{{ milestone.deadline }}</td>

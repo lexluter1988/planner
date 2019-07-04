@@ -10,10 +10,8 @@ class TaskForm(FlaskForm):
     name = StringField(_l('Name'), validators=[DataRequired()])
     description = TextAreaField(_l('Description'))
 
-    # TODO: pass projects or default from data here
     project = SelectField(_l('Project'), coerce=int)
 
-    # TODO: pass milestones or default from data here
     milestone = SelectField(_l('Milestone'), coerce=int)
 
     priority = SelectField(_l('Priority'),
