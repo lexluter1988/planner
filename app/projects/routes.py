@@ -47,3 +47,17 @@ def delete(project_id):
     else:
         flash(_('No project with such id found'))
     return redirect(url_for('projects.add'))
+
+
+def create_default_project():
+    project = Project(
+        name=_('default'),
+        description=_('Automatically generated default milestone '),
+        status=None,
+        created=datetime.utcnow(),
+        deadline=None,
+        estimated=None,
+    )
+    db.session.add(project)
+    db.session.commit()
+    return project

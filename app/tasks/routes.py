@@ -6,7 +6,8 @@ from flask_babel import _, lazy_gettext as _l
 
 from app import db
 from app.milestones.routes import create_default_milestone
-from app.models import Task, Milestone
+from app.models import Task, Milestone, Project
+from app.projects.routes import create_default_project
 from app.tasks import bp
 from app.tasks.forms import TaskForm
 
@@ -21,16 +22,25 @@ def add():
     milestones = Milestone.query.all()
     if not milestones:
         milestones = [create_default_milestone()]
+
+    projects = Project.query.all()
+    if not projects:
+        projects = [create_default_project()]
+
     form.milestone.choices = [(m.id, m.name) for m in milestones]
+    form.project.choices = [(p.id, p.name) for p in projects]
+
     tasks = Task.query.filter_by(author=current_user)
     if form.validate_on_submit():
+
         selected_milestone = Milestone.query.get(form.milestone.data)
+        selected_project = Project.query.get(form.project.data)
+
         task = Task(
             name=form.name.data,
             author=current_user,
             description=form.name.data,
-            # TODO: select projects from data here
-            # project=form.project.data,
+            project=selected_project,
             milestone=selected_milestone,
             priority=form.priority.data,
             group=form.group.data,

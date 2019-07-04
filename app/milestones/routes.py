@@ -61,3 +61,4 @@ def create_default_milestone():
     )
     db.session.add(milestone)
     db.session.commit()
+    return milestone
