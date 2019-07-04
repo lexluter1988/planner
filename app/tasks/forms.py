@@ -16,9 +16,7 @@ class TaskForm(FlaskForm):
                                    ('work', 'Work')])
 
     # TODO: pass milestones or default from data here
-    milestone = SelectField(_l('Milestone'),
-                            choices=[('day', 'Day'),
-                                     ('week', 'Week')])
+    milestone = SelectField(_l('Milestone'), coerce=int)
 
     priority = SelectField(_l('Priority'),
                            choices=[('3', 'Normal'),

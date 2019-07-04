@@ -47,3 +47,17 @@ def delete(milestone_id):
     else:
         flash(_('No milestone with such id found'))
     return redirect(url_for('milestones.add'))
+
+
+def create_default_milestone():
+    milestone = Milestone(
+        name=_('default'),
+        description=_('Automatically generated default milestone '),
+        projects=None,
+        status=None,
+        created=datetime.utcnow(),
+        deadline=None,
+        estimated=None,
+    )
+    db.session.add(milestone)
+    db.session.commit()

@@ -5,7 +5,8 @@ from flask_login import login_required, current_user
 from flask_babel import _, lazy_gettext as _l
 
 from app import db
-from app.models import Task
+from app.milestones.routes import create_default_milestone
+from app.models import Task, Milestone
 from app.tasks import bp
 from app.tasks.forms import TaskForm
 
@@ -17,15 +18,20 @@ def add():
         flash(_('You must be logged in to create tasks'))
         return redirect(url_for('main.index'))
     form = TaskForm()
+    milestones = Milestone.query.all()
+    if not milestones:
+        milestones = [create_default_milestone()]
+    form.milestone.choices = [(m.id, m.name) for m in milestones]
     tasks = Task.query.filter_by(author=current_user)
     if form.validate_on_submit():
+        selected_milestone = Milestone.query.get(form.milestone.data)
         task = Task(
             name=form.name.data,
             author=current_user,
             description=form.name.data,
             # TODO: select projects from data here
             # project=form.project.data,
-            # milestone=form.milestone.data,
+            milestone=selected_milestone,
             priority=form.priority.data,
             group=form.group.data,
             status=form.status.data,
