@@ -14,6 +14,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     notes = db.relationship('Note', backref='author', lazy='dynamic')
     tasks = db.relationship('Task', backref='author', lazy='dynamic')
+    projects = db.relationship('Project', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -49,13 +50,13 @@ class Note(db.Model):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     description = db.Column(db.Text)
 
-    # TODO: this is reference to Milestones, and to Project but could be none.
-    project = db.Column(db.Integer, nullable=True)
-    milestone = db.Column(db.Integer, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+    milestone_id = db.Column(db.Integer, db.ForeignKey('milestone.id'))
+
     # TODO: implement choices
     priority = db.Column(db.String(64))
     # TODO: this is reference to Kovi type of view
@@ -74,12 +75,17 @@ class Task(db.Model):
     actions = db.Column(db.String(120))
 
 
-class Milestone(db.Model):
-    # TODO: describe what milestone is
+class Project(db.Model):
+    # TODO: link projects with users, tasks and milestones
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    milestones = db.relationship('Milestone', backref='project', lazy='dynamic')
+    tasks = db.relationship('Task', backref='project', lazy='dynamic')
+
     description = db.Column(db.Text)
-    projects = db.Column(db.Integer, nullable=True)
     status = db.Column(db.String(64))
     created = db.Column(db.DateTime)
     ended = db.Column(db.DateTime)
@@ -88,11 +94,15 @@ class Milestone(db.Model):
     duration = db.Column(db.Integer)
 
 
-class Project(db.Model):
-    # TODO: link projects with users, tasks and milestones
+class Milestone(db.Model):
+    # TODO: describe what milestone is
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+
+    tasks = db.relationship('Task', backref='milestone', lazy='dynamic')
     description = db.Column(db.Text)
+    projects = db.Column(db.Integer, nullable=True)
     status = db.Column(db.String(64))
     created = db.Column(db.DateTime)
     ended = db.Column(db.DateTime)

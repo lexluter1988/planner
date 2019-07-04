@@ -10,10 +10,12 @@ class TaskForm(FlaskForm):
     name = StringField(_l('Name'), validators=[DataRequired()])
     description = TextAreaField(_l('Description'))
 
+    # TODO: pass projects or default from data here
     project = SelectField(_l('Project'),
                           choices=[('home', 'Home'),
                                    ('work', 'Work')])
 
+    # TODO: pass milestones or default from data here
     milestone = SelectField(_l('Milestone'),
                             choices=[('day', 'Day'),
                                      ('week', 'Week')])
@@ -36,5 +38,5 @@ class TaskForm(FlaskForm):
     schedule = DateTimeField(_l('Schedule'), format='%m/%d/%y %H:%M', default=datetime.now())
     estimated = IntegerField(_l('Estimated'))
 
-    actions = StringField(_l('Actions'), validators=[DataRequired()])
+    actions = StringField(_l('Actions'))
     submit = SubmitField(_l('Submit'))

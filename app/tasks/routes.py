@@ -23,8 +23,9 @@ def add():
             name=form.name.data,
             author=current_user,
             description=form.name.data,
-            project=form.project.data,
-            milestone=form.milestone.data,
+            # TODO: select projects from data here
+            # project=form.project.data,
+            # milestone=form.milestone.data,
             priority=form.priority.data,
             group=form.group.data,
             status=form.status.data,
