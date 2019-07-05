@@ -121,7 +121,31 @@ class Setting(db.Model):
     app_id = db.Column(db.Integer, db.ForeignKey('application_store.id'))
     parameter = db.Column(db.Text)
     value = db.Column(db.Text)
-    #updated = db.Column(db.DateTime)
+
+
+class Pipeline(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tasks = db.relationship('PipelineTask', backref='pipeline', lazy='dynamic')
+    name = db.Column(db.Text)
+    description = db.Column(db.Text)
+    status = db.Column(db.String(64))
+    created = db.Column(db.DateTime)
+    ended = db.Column(db.DateTime)
+    duration = db.Column(db.Integer)
+
+
+class PipelineTask(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    description = db.Column(db.Text)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    pipeline_id = db.Column(db.Integer, db.ForeignKey('pipeline.id'))
+
+    position = db.Column(db.Integer)
+    status = db.Column(db.String(64))
+    created = db.Column(db.DateTime)
+    ended = db.Column(db.DateTime)
 
 
 @login.user_loader
