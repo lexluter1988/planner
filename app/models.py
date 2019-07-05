@@ -94,7 +94,6 @@ class Project(db.Model):
 
 
 class Milestone(db.Model):
-    # TODO: describe what milestone is
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
@@ -107,6 +106,22 @@ class Milestone(db.Model):
     deadline = db.Column(db.DateTime)
     estimated = db.Column(db.Integer)
     duration = db.Column(db.Integer)
+
+
+class ApplicationStore(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    # TODO: implement installed/uninstalled statuses
+    status = db.Column(db.String(64))
+    settings = db.relationship('Setting', backref='application', lazy='dynamic')
+
+
+class Setting(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    app_id = db.Column(db.Integer, db.ForeignKey('application_store.id'))
+    parameter = db.Column(db.Text)
+    value = db.Column(db.Text)
+    #updated = db.Column(db.DateTime)
 
 
 @login.user_loader
