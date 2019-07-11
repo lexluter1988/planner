@@ -155,6 +155,7 @@ class PipelineTask(db.Model):
 class ApplicationStore(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
+    description = db.Column(db.Text)
     # TODO: implement installed/uninstalled statuses
     status = db.Column(db.String(64))
     settings = db.relationship('Setting', backref='application', lazy='dynamic')
@@ -162,11 +163,11 @@ class ApplicationStore(db.Model):
 
 class Setting(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-
     # dependencies
     app_id = db.Column(db.Integer, db.ForeignKey('application_store.id'))
 
     parameter = db.Column(db.Text)
+    description = db.Column(db.Text)
     value = db.Column(db.Text)
 
 
