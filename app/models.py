@@ -12,9 +12,12 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    # relationships
     notes = db.relationship('Note', backref='author', lazy='dynamic')
     tasks = db.relationship('Task', backref='author', lazy='dynamic')
     projects = db.relationship('Project', backref='author', lazy='dynamic')
+    pipelines = db.relationship('Pipeline', backref='author', lazy='dynamic')
+    pipeline_tasks = db.relationship('PipelineTask', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -44,6 +47,8 @@ class User(UserMixin, db.Model):
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
+
+    # dependencies
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
@@ -53,6 +58,7 @@ class Task(db.Model):
 
     description = db.Column(db.Text)
 
+    # dependencies
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
     milestone_id = db.Column(db.Integer, db.ForeignKey('milestone.id'))
@@ -79,10 +85,12 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
+    # relationships
     milestones = db.relationship('Milestone', backref='project', lazy='dynamic')
     tasks = db.relationship('Task', backref='project', lazy='dynamic')
+
+    # dependencies
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     description = db.Column(db.Text)
     status = db.Column(db.String(64))
@@ -96,9 +104,13 @@ class Project(db.Model):
 class Milestone(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
+
+    # dependencies
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
 
+    # relationships
     tasks = db.relationship('Task', backref='milestone', lazy='dynamic')
+
     description = db.Column(db.Text)
     status = db.Column(db.String(64))
     created = db.Column(db.DateTime)
@@ -108,24 +120,15 @@ class Milestone(db.Model):
     duration = db.Column(db.Integer)
 
 
-class ApplicationStore(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Text)
-    # TODO: implement installed/uninstalled statuses
-    status = db.Column(db.String(64))
-    settings = db.relationship('Setting', backref='application', lazy='dynamic')
-
-
-class Setting(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    app_id = db.Column(db.Integer, db.ForeignKey('application_store.id'))
-    parameter = db.Column(db.Text)
-    value = db.Column(db.Text)
-
-
 class Pipeline(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
+    # relationships
     tasks = db.relationship('PipelineTask', backref='pipeline', lazy='dynamic')
+
+    # dependencies
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
     name = db.Column(db.Text)
     description = db.Column(db.Text)
     status = db.Column(db.String(64))
@@ -139,6 +142,7 @@ class PipelineTask(db.Model):
     name = db.Column(db.Text)
     description = db.Column(db.Text)
 
+    # dependencies
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     pipeline_id = db.Column(db.Integer, db.ForeignKey('pipeline.id'))
 
@@ -146,6 +150,24 @@ class PipelineTask(db.Model):
     status = db.Column(db.String(64))
     created = db.Column(db.DateTime)
     ended = db.Column(db.DateTime)
+
+
+class ApplicationStore(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    # TODO: implement installed/uninstalled statuses
+    status = db.Column(db.String(64))
+    settings = db.relationship('Setting', backref='application', lazy='dynamic')
+
+
+class Setting(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    # dependencies
+    app_id = db.Column(db.Integer, db.ForeignKey('application_store.id'))
+
+    parameter = db.Column(db.Text)
+    value = db.Column(db.Text)
 
 
 @login.user_loader
