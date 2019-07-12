@@ -1,5 +1,5 @@
 from app import create_app, db
-from app.models import User, Task, Note, Project, Milestone, ApplicationStore, Setting, PipelineTask
+from app.models import User, Task, Note, Project, Milestone, ApplicationStore, Setting, PipelineTask, Pipeline
 
 app = create_app()
 
@@ -8,4 +8,5 @@ app = create_app()
 def make_shell_context():
     return {'db': db, 'User': User, 'Note': Note, 'Task': Task,
             'Project': Project, 'Milestone': Milestone,
-            'Setting': Setting, 'PipelineTask': PipelineTask}
+            'Setting': Setting, 'PipelineTask': PipelineTask,
+            'ApplicationStore': ApplicationStore, 'Pipeline': Pipeline}

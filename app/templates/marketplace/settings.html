@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}
+
+{% block app_content %}
+    <h1>{{ _('Settings') }}</h1>
+        {% if catalog %}
+        <table class="table">
+          <thead class="thead-dark">
+          <tr>
+              <th scope="col">{{ _('Name') }}</th>
+              <th scope="col">{{ _('Description') }}</th>
+              <th scope="col">{{ _('Status') }}</th>
+              <th scope="col">{{ _('Settings') }}</th>
+          </tr>
+          </thead>
+          <tbody>
+              {% for item in catalog %}
+              <th scope="row">{{ item.name }}</th>
+              <th scope="row">{{ item.description }}</th>
+              <th scope="row">{{ item.status }}</th>
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                      <th scope="col">{{ _('Parameter') }}</th>
+                      <th scope="col">{{ _('Description') }}</th>
+                      <th scope="col">{{ _('Value') }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for setting in item.settings %}
+                  <th scope="row">{{ setting.parameter }}</th>
+                  <th scope="row">{{ setting.description }}</th>
+                  <th scope="row">{{ setting.value }}</th>
+                </tbody>
+                {% endfor %}
+              </table>
+          {% endfor %}
+          </tbody>
+        </table>
+    {% endif %}
+    <br>
+{% endblock %}
