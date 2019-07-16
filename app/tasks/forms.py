@@ -15,17 +15,22 @@ class TaskForm(FlaskForm):
     milestone = SelectField(_l('Milestone'), coerce=int)
 
     priority = SelectField(_l('Priority'),
-                           choices=[('3', 'Normal'),
-                                    ('1', 'Urgent')])
+                           choices=[('1', 'Urgent'),
+                                    ('2', 'High'),
+                                    ('3', 'Normal'),
+                                    ('4', 'Low')])
     group = SelectField(_l('Group'),
-                        choices=[('3', '3'),
-                                 ('1', '1')])
+                        choices=[('1', 'Urgent/Important'),
+                                 ('2', 'Urgent/UnImportant'),
+                                 ('3', 'Normal/Important'),
+                                 ('4', 'Normal/UnImportant')])
 
     status = SelectField(_l('Status'),
                          choices=[
-                             ('new', 'New'),
-                             ('in progress', 'In Progress'),
-                             ('done', 'Done')],
+                             ('1', 'Backlog'),
+                             ('2', 'New'),
+                             ('3', 'In Progress'),
+                             ('4', 'Done')],
                          validators=[DataRequired()])
 
     deadline = DateTimeField(_l('Deadline'), format='%m/%d/%y %H:%M', default=datetime.now())
