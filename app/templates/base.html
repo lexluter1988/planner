@@ -28,14 +28,18 @@
             {{ _('Logout') }}
         </a>
         <a href="#">{{ _('Profile') }}</a>
-        <a href="{{ url_for('tasks.add') }}">{{ _('Tasks') }}</a>
+        <a class="accordion-heading" data-toggle="collapse" data-target="#tasks_submenu">{{ _('Tasks') }}<span class="pull-right"><b class="caret"></b></span></a>
+    	<ul class="nav nav-list collapse" id="tasks_submenu">
+		 	<li><a href="{{ url_for('tasks.all') }}" title="All">{{ _('All') }}</a></li>
+			<li><a href="{{ url_for('tasks.add') }}" title="Add New">{{ _('Add New') }}</a></li>
+		</ul>
         <a href="{{ url_for('milestones.add') }}">{{ _('Milestones') }}</a>
         <a href="{{ url_for('projects.add') }}">{{ _('Projects') }}</a>
         <a href="{{ url_for('notes.add') }}">{{ _('Notes') }}</a>
         <a class="accordion-heading" data-toggle="collapse" data-target="#submenu">{{ _('Finances') }}<span class="pull-right"><b class="caret"></b></span></a>
     	<ul class="nav nav-list collapse" id="submenu">
-		 	<li><a href="#" title="Title">{{ _('Accounts') }}</a></li>
-			<li><a href="#" title="Title">{{ _('Expences') }}</a></li>
+		 	<li><a href="#" title="Accounts">{{ _('Accounts') }}</a></li>
+			<li><a href="#" title="Expenses">{{ _('Expences') }}</a></li>
 		</ul>
     <!--{% endif %}-->
     <!--{% if context %}-->

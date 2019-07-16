@@ -12,12 +12,19 @@ from app.tasks import bp
 from app.tasks.forms import TaskForm
 
 
-@bp.route('/tasks', methods=['GET', 'POST'])
+@bp.route('/all', methods=['GET'])
 @login_required
-def add():
+def all():
     if not current_user.is_authenticated:
         flash(_('You must be logged in to create tasks'))
         return redirect(url_for('main.index'))
+    tasks = Task.query.filter_by(author=current_user)
+    return render_template('tasks/tasks.html', tasks=tasks)
+
+
+@bp.route('/add', methods=['GET', 'POST'])
+@login_required
+def add():
     form = TaskForm()
     milestones = Milestone.query.all()
     if not milestones:
@@ -30,7 +37,6 @@ def add():
     form.milestone.choices = [(m.id, m.name) for m in milestones]
     form.project.choices = [(p.id, p.name) for p in projects]
 
-    tasks = Task.query.filter_by(author=current_user)
     if form.validate_on_submit():
 
         selected_milestone = Milestone.query.get(form.milestone.data)
@@ -54,8 +60,8 @@ def add():
         db.session.add(task)
         db.session.commit()
         flash(_('Your task is saved'))
-        return redirect(url_for('tasks.add'))
-    return render_template('tasks/tasks.html', tasks=tasks, form=form)
+        return redirect(url_for('tasks.all'))
+    return render_template('tasks/tasks.html', form=form)
 
 
 # TODO: implement normal js delete method
