@@ -30,9 +30,10 @@
         <a href="#">{{ _('Profile') }}</a>
         <a class="accordion-heading" data-toggle="collapse" data-target="#tasks_submenu">{{ _('Tasks') }}<span class="pull-right"><b class="caret"></b></span></a>
     	<ul class="nav nav-list collapse" id="tasks_submenu">
+            <li><a href="{{ url_for('tasks.add') }}" title="Add New">{{ _('Add New') }}</a></li>
 		 	<li><a href="{{ url_for('tasks.all') }}" title="Raw View">{{ _('Raw View') }}</a></li>
             <li><a href="{{ url_for('tasks.priority') }}" title="Priority View">{{ _('Priority View') }}</a></li>
-			<li><a href="{{ url_for('tasks.add') }}" title="Add New">{{ _('Add New') }}</a></li>
+            <li><a href="{{ url_for('tasks.kanban') }}" title="Kanban View">{{ _('Kanban View') }}</a></li>
 		</ul>
         <a href="{{ url_for('milestones.add') }}">{{ _('Milestones') }}</a>
         <a href="{{ url_for('projects.add') }}">{{ _('Projects') }}</a>

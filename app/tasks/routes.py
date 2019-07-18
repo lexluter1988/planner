@@ -29,6 +29,13 @@ def priority():
     return render_template('tasks/tasks_kovi.html', tasks=tasks)
 
 
+@bp.route('/kanban', methods=['GET'])
+@login_required
+def kanban():
+    tasks = Task.query.filter_by(author=current_user)
+    return render_template('tasks/tasks_kanban.html', tasks=tasks)
+
+
 @bp.route('/add', methods=['GET', 'POST'])
 @login_required
 def add():

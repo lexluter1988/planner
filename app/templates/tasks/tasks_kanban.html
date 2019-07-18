@@ -8,38 +8,36 @@
 {% block app_content %}
 <h1>{{ _('Tasks') }}</h1>
     <div class="container">
-      <h2>Priority Tasks View</h2>
-      <p>You can see your tasks in view separated by priority and importancy for you. Like pay bills ( urgent but not important ) </p>
+      <h2>Kanban Tasks View</h2>
+      <p>You can see your tasks in view separated by current status of activity </p>
 
         {% if tasks %}
           <table class = "table table-bordered">
              <tr>
-                <td class="danger">
+                 <td class="warning"> <h2>Backlog</h2></br>
                     {% for task in tasks %}
-                    {% if task.group == '1' %}
+                    {% if task.status == '1' %}
                     <p><strong>{{ task.name }}</strong></p>
                     {% endif %}
                     {% endfor %}
                 </td>
-                <td class="warning">
+                <td class="info"> <h2>New</h2></br>
                     {% for task in tasks %}
-                    {% if task.group == '2' %}
+                    {% if task.status == '2' %}
                     <p><strong>{{ task.name }}</strong></p>
                     {% endif %}
                     {% endfor %}
                 </td>
-             </tr>
-             <tr>
-                <td class="success">
+                <td class="active"> <h2>In Progress</h2></br>
                     {% for task in tasks %}
-                    {% if task.group == '3' %}
+                    {% if task.status == '3' %}
                     <p><strong>{{ task.name }}</strong></p>
                     {% endif %}
                     {% endfor %}
                 </td>
-                <td class="info">
+                <td class="success"> <h2>Done</h2></br>
                     {% for task in tasks %}
-                    {% if task.group == '4' %}
+                    {% if task.status == '4' %}
                     <p><strong>{{ task.name }}</strong></p>
                     {% endif %}
                     {% endfor %}
