@@ -22,6 +22,13 @@ def all():
     return render_template('tasks/tasks.html', tasks=tasks)
 
 
+@bp.route('/priority', methods=['GET'])
+@login_required
+def priority():
+    tasks = Task.query.filter_by(author=current_user)
+    return render_template('tasks/tasks_kovi.html', tasks=tasks)
+
+
 @bp.route('/add', methods=['GET', 'POST'])
 @login_required
 def add():
